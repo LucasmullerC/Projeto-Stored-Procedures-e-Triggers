@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/Projeto-Stored-Procedures-e-Triggers/static/css/main.073c9b0a.css",
+    "main.js": "/Projeto-Stored-Procedures-e-Triggers/static/js/main.bdb82868.js",
+    "static/js/787.6d38770c.chunk.js": "/Projeto-Stored-Procedures-e-Triggers/static/js/787.6d38770c.chunk.js",
+    "static/media/logo.svg": "/Projeto-Stored-Procedures-e-Triggers/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/Projeto-Stored-Procedures-e-Triggers/index.html",
+    "main.073c9b0a.css.map": "/Projeto-Stored-Procedures-e-Triggers/static/css/main.073c9b0a.css.map",
+    "main.bdb82868.js.map": "/Projeto-Stored-Procedures-e-Triggers/static/js/main.bdb82868.js.map",
+    "787.6d38770c.chunk.js.map": "/Projeto-Stored-Procedures-e-Triggers/static/js/787.6d38770c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.bdb82868.js"
+  ]
+}
