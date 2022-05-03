@@ -12,10 +12,8 @@ O projeto consiste em implementar uma interface gráfica e uma conexão com o ba
 
 ## ❓Sobre / About
 
-Como interface utilizamos um Fork do nosso [projeto de Engenharia de Software I](https://github.com/ViniLopes87/Projeto-Engenharia-de-Software) que consistia em um site de gerenciamento de estágios na Universidade Católica de Pernambuco (UNICAP) utilizando somente HTML,CSS e Javascript.
+Como interface utilizamos ### Work in Progress ###
 
-> Os requisitos foram adaptados para o contexto
-> do projeto.
 
 ## 👥 Grupo / Group
 
