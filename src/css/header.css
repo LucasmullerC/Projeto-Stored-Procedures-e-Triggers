@@ -17,6 +17,7 @@
   padding-right: 10px;
 }
 #menuhead {
+  border-color: transparent;
   background-color: transparent;
   box-sizing: border-box;
   border-radius: 100px;
@@ -49,6 +50,9 @@
 #menuhead:hover {
   color: white;
   background: black;
+}
+#menuhead:focus {
+  outline: none;
 }
 #headerfull {
   background: #c5ced8;

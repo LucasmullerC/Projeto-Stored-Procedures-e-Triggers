@@ -112,6 +112,35 @@ app.get("/getprodutos", (req, res) => {
   connection.connect();
 });
 
+//get categoria
+app.get("/getcategoria", (req, res) => {
+  var connection = new Connection(config);
+  connection.on("connect", function (err) {
+    if (err) {
+      console.log("Error: ", err);
+    }
+    connection.execSql(
+      new Request(
+        "SELECT ProductName,UnitPrice FROM Northwind.dbo.Products WHERE CategoryID='" +
+          req.query.cid +
+          "'",
+        function (err, rowCount, rows) {
+          if (err) {
+            throw err;
+          }
+        }
+      ).on("doneInProc", function (rowCount, more, rows) {
+        console.log(rows); // not empty
+        res.send(rows);
+        connection.close;
+      })
+    );
+  });
+
+  // Initialize the connection.
+  connection.connect();
+});
+
 app.listen(port, () => {
   console.log(`Backend Projeto Lojinha listening at http://localhost:${port}`);
 });

@@ -6,7 +6,7 @@ function Home() {
   return (
     <React.Fragment>
       <Header />
-      <ProductCards header={"Todos os produtos:"} opt={"home"} />
+      <ProductCards header={"Frutas:"} opt={7} />
       <Footer />
     </React.Fragment>
   );

@@ -11,11 +11,11 @@ import "../css/ProductCards.css";
 
 class Cards extends React.Component {
   render() {
-    return <CardBox header={this.props.header} />;
+    return <CardBox header={this.props.header} opt={this.props.opt} />;
   }
 }
 
-async function genarr(data) {
+async function home(data) {
   let produtos = [];
   for (let i = 0; i < data.length; i++) {
     var name = JSON.stringify(data[i]).substring(
@@ -38,7 +38,13 @@ function CardBox(props) {
   let produtos = [1, 2, 3, 4];
   const [prods, setProds] = useState(produtos);
   useEffect(() => {
-    fetch("http://localhost:8000/getprodutos")
+    let sql = "";
+    if (props.opt === "home") {
+      sql = "http://localhost:8000/getprodutos";
+    } else {
+      sql = "http://localhost:8000/getcategoria?cid=" + props.opt;
+    }
+    fetch(sql)
       .then(async (response) => {
         const data = await response.json();
         // check for error response
@@ -47,7 +53,7 @@ function CardBox(props) {
           const error = (data && data.message) || response.statusText;
           return Promise.reject(error);
         } else {
-          setProds(await genarr(data));
+          setProds(await home(data));
         }
       })
       .catch((error) => {
@@ -84,6 +90,6 @@ function CardBox(props) {
 
 export default (param) => (
   <React.Fragment>
-    <Cards header={param.header} />
+    <Cards header={param.header} opt={param.opt} />
   </React.Fragment>
 );

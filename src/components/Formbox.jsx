@@ -100,6 +100,8 @@ const CadastroForm = () => {
           <br />
           <input type="text" name="ocupacao" placeholder="Ocupação" />
           <br />
+          <input type="text" name="empresa" placeholder="Nome da Empresa" />
+          <br />
           <input type="text" name="endereco" placeholder="Endereço" />
           <br />
           <input type="text" name="cidade" placeholder="Cidade" />

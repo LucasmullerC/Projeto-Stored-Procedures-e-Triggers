@@ -4,6 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
+import Dropdown from "react-bootstrap/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDumpster,
@@ -20,6 +21,7 @@ class Header extends React.Component {
     return <Headerbar />;
   }
 }
+
 const logout = () => {
   sessionStorage.removeItem("login");
   sessionStorage.removeItem("loginF");
@@ -85,21 +87,33 @@ const Headerbar = () => {
   return (
     <Navbar collapseOnSelect expand="lg" id="headerfull">
       <Container>
-        <Navbar.Brand href="#home" id="brandname">
+        <Navbar.Brand href="/" id="brandname">
           <FontAwesomeIcon icon={faDumpster} />
           Projeto Lojinha <span id="brand2">2.0</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#features" id="menuhead">
+            <Nav.Link href="/" id="menuhead">
               <FontAwesomeIcon icon={faHouse} id="iconmenu" />
               Início
             </Nav.Link>
-            <Nav.Link href="#pricing" id="menuhead">
-              <FontAwesomeIcon icon={faBox} id="iconmenu" />
-              Produtos
-            </Nav.Link>
+            <Dropdown>
+              <Dropdown.Toggle id="menuhead">
+                <FontAwesomeIcon icon={faBox} id="iconmenu" />
+                Produtos
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="/bebidas">Bebidas</Dropdown.Item>
+                <Dropdown.Item href="/condimentos">Condimentos</Dropdown.Item>
+                <Dropdown.Item href="/confeitos">Confeitos</Dropdown.Item>
+                <Dropdown.Item href="/lacticinios">Lacticínios</Dropdown.Item>
+                <Dropdown.Item href="/cereais">Grãos/cereais</Dropdown.Item>
+                <Dropdown.Item href="/carne">Carne/Aves</Dropdown.Item>
+                <Dropdown.Item href="/frutas">Frutas</Dropdown.Item>
+                <Dropdown.Item href="/frutos">Frutos do mar</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
             <Nav.Link href="#pricing" id="menuhead">
               <FontAwesomeIcon icon={faQuestion} id="iconmenu" />
               Sobre
