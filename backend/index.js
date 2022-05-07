@@ -27,22 +27,24 @@ const config = {
 
 app.use(express.json()); // built-in middleware for express
 
-app.get("/", (req, res) => {
+//Verificar Login Cliente
+app.get("/vefLogin", (req, res) => {
   var connection = new Connection(config);
   connection.on("connect", function (err) {
     if (err) {
       console.log("Error: ", err);
     }
     connection.execSql(
-      new Request("SELECT * FROM Northwind.dbo.Customers", function (
-        err,
-        rowCount,
-        rows
-      ) {
-        if (err) {
-          throw err;
+      new Request(
+        "SELECT ContactName FROM Northwind.dbo.Customers WHERE CustomerID='" +
+          req.query.uid +
+          "'",
+        function (err, rowCount, rows) {
+          if (err) {
+            throw err;
+          }
         }
-      }).on("doneInProc", function (rowCount, more, rows) {
+      ).on("doneInProc", function (rowCount, more, rows) {
         console.log(rows); // not empty
         res.send(rows);
         connection.close;
@@ -54,7 +56,8 @@ app.get("/", (req, res) => {
   connection.connect();
 });
 
-app.get("/vefLogin", (req, res) => {
+//Verificar Login Funcionario
+app.get("/vefLoginFunc", (req, res) => {
   var connection = new Connection(config);
   connection.on("connect", function (err) {
     if (err) {
@@ -62,9 +65,36 @@ app.get("/vefLogin", (req, res) => {
     }
     connection.execSql(
       new Request(
-        "SELECT * FROM Northwind.dbo.Customers WHERE CustomerID='" +
+        "SELECT FirstName FROM Northwind.dbo.Employees WHERE EmployeeID='" +
           req.query.uid +
           "'",
+        function (err, rowCount, rows) {
+          if (err) {
+            throw err;
+          }
+        }
+      ).on("doneInProc", function (rowCount, more, rows) {
+        console.log(rows); // not empty
+        res.send(rows);
+        connection.close;
+      })
+    );
+  });
+
+  // Initialize the connection.
+  connection.connect();
+});
+
+//get todos os produtos
+app.get("/getprodutos", (req, res) => {
+  var connection = new Connection(config);
+  connection.on("connect", function (err) {
+    if (err) {
+      console.log("Error: ", err);
+    }
+    connection.execSql(
+      new Request(
+        "SELECT ProductName,UnitPrice FROM Northwind.dbo.Products",
         function (err, rowCount, rows) {
           if (err) {
             throw err;

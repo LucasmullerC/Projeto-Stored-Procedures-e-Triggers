@@ -19,3 +19,7 @@ body {
 .form-container input {
   margin-bottom: 10px;
 }
+#errortxt {
+  color: red;
+  display: none;
+}
