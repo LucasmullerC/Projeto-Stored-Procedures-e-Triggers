@@ -1,6 +1,8 @@
 const express = require("express");
-const Connection = require("tedious").Connection;
+/*const Connection = require("tedious").Connection;
 const Request = require("tedious").Request;
+const TYPES = require("tedious");*/
+const { Connection, Request, TYPES } = require("tedious");
 const cors = require("cors");
 
 const app = express();
@@ -82,6 +84,45 @@ app.get("/vefLoginFunc", (req, res) => {
   });
 
   // Initialize the connection.
+  connection.connect();
+});
+
+//Adicionar Cliente
+app.post("/cadastro", (req, res) => {
+  var connection = new Connection(config);
+  connection.on("connect", function (err) {
+    if (err) {
+      console.log("Error: ", err);
+    }
+    const request = new Request(
+      "[Northwind].[dbo].[CadastrarCliente]",
+      (err) => {
+        if (err) {
+          throw err;
+        }
+
+        console.log("DONE!");
+        connection.close();
+      }
+    );
+
+    request.addParameter("CustomerID", TYPES.VarChar, req.query.uid);
+    request.addParameter("CompanyName", TYPES.VarChar, req.query.empresa);
+    request.addParameter("ContactName", TYPES.VarChar, req.query.nome);
+    request.addParameter("ContactTitle", TYPES.VarChar, req.query.ocupacao);
+    request.addParameter("Address", TYPES.VarChar, req.query.endereco);
+    request.addParameter("City", TYPES.VarChar, req.query.cidade);
+    request.addParameter("Region", TYPES.VarChar, req.query.estado);
+    request.addParameter("PostalCode", TYPES.VarChar, req.query.cep);
+    request.addParameter("Phone", TYPES.VarChar, req.query.numero);
+    request.addParameter("Fax", TYPES.VarChar, req.query.fax);
+
+    request.on("returnValue", (paramName, value, metadata) => {
+      console.log(paramName + " : " + value);
+    });
+    connection.callProcedure(request);
+  });
+
   connection.connect();
 });
 

@@ -84,6 +84,62 @@ const RemovePForm = () => {
 };
 
 const CadastroForm = () => {
+  const uidRef = React.useRef();
+  const empresaRef = React.useRef();
+  const nomeRef = React.useRef();
+  const ocupacaoRef = React.useRef();
+  const enderecoRef = React.useRef();
+  const cidadeRef = React.useRef();
+  const estadoRef = React.useRef();
+  const cepRef = React.useRef();
+  const numeroRef = React.useRef();
+  const faxRef = React.useRef();
+
+  const handleSubmit = () => {
+    let check = true;
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch(
+      "http://localhost:8000/cadastro?uid=" +
+        uidRef.current.value +
+        "&empresa=" +
+        empresaRef.current.value +
+        "&nome=" +
+        nomeRef.current.value +
+        "&ocupacao=" +
+        ocupacaoRef.current.value +
+        "&endereco=" +
+        enderecoRef.current.value +
+        "&cidade=" +
+        cidadeRef.current.value +
+        "&estado=" +
+        estadoRef.current.value +
+        "&cep=" +
+        cepRef.current.value +
+        "&numero=" +
+        numeroRef.current.value +
+        "&fax=" +
+        faxRef.current.value,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => this.setState({ postId: data.id }))
+      .catch(function (error) {
+        check = false;
+        console.log(
+          "There has been a problem with your fetch operation: " + error.message
+        );
+      });
+    if ((check = true)) {
+      alert("Cadastro concluido!");
+      window.location.href = "/login";
+    } else {
+      alert("Conexão com o banco de dados não estabelecida!");
+    }
+  };
+
   return (
     <div>
       <div>
@@ -94,27 +150,58 @@ const CadastroForm = () => {
             name="uid"
             maxlength="5"
             placeholder="ID de usuário"
+            ref={uidRef}
           />
           <br />
-          <input type="text" name="nome" placeholder="Nome completo" />
+          <input
+            type="text"
+            name="nome"
+            placeholder="Nome completo"
+            ref={nomeRef}
+          />
           <br />
-          <input type="text" name="ocupacao" placeholder="Ocupação" />
+          <input
+            type="text"
+            name="ocupacao"
+            placeholder="Ocupação"
+            ref={ocupacaoRef}
+          />
           <br />
-          <input type="text" name="empresa" placeholder="Nome da Empresa" />
+          <input
+            type="text"
+            name="empresa"
+            placeholder="Nome da Empresa"
+            ref={empresaRef}
+          />
           <br />
-          <input type="text" name="endereco" placeholder="Endereço" />
+          <input
+            type="text"
+            name="endereco"
+            placeholder="Endereço"
+            ref={enderecoRef}
+          />
           <br />
-          <input type="text" name="cidade" placeholder="Cidade" />
+          <input
+            type="text"
+            name="cidade"
+            placeholder="Cidade"
+            ref={cidadeRef}
+          />
           <br />
-          <input type="text" name="estado" placeholder="Estado" />
+          <input
+            type="text"
+            name="estado"
+            placeholder="Estado"
+            ref={estadoRef}
+          />
           <br />
-          <input type="number" name="cep" placeholder="CEP" />
+          <input type="number" name="cep" placeholder="CEP" ref={cepRef} />
           <br />
-          <input type="number" name="fone" placeholder="Fone" />
+          <input type="number" name="fone" placeholder="Fone" ref={numeroRef} />
           <br />
-          <input type="number" name="fax" placeholder="FAX" />
+          <input type="number" name="fax" placeholder="FAX" ref={faxRef} />
           <br />
-          <button type="button" role="button">
+          <button type="button" role="button" onClick={handleSubmit}>
             Cadastrar
           </button>
         </section>
