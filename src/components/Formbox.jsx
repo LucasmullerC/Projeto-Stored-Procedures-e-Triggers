@@ -17,6 +17,49 @@ class Form extends React.Component {
   }
 }
 const AddPForm = () => {
+  const nomeRef = React.useRef();
+  const idfRef = React.useRef();
+  const idcatRef = React.useRef();
+  const qtdRef = React.useRef();
+  const precoRef = React.useRef();
+  const estoqueRef = React.useRef();
+
+  const handleSubmit = () => {
+    let check = true;
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch(
+      "http://localhost:8000/addprod?nome=" +
+        nomeRef.current.value +
+        "&sid=" +
+        idfRef.current.value +
+        "&cid=" +
+        idcatRef.current.value +
+        "&qtd=" +
+        qtdRef.current.value +
+        "&preco=" +
+        precoRef.current.value +
+        "&estoque=" +
+        estoqueRef.current.value,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => this.setState({ postId: data.id }))
+      .catch(function (error) {
+        check = false;
+        console.log(
+          "There has been a problem with your fetch operation: " + error.message
+        );
+      });
+    if ((check = true)) {
+      alert("O Produto foi adicionado!");
+    } else {
+      alert("Conexão com o banco de dados não estabelecida!");
+    }
+  };
+
   if (sessionStorage.getItem("loginF") === null) {
     window.location.href = "/";
     alert("Página não autorizada!");
@@ -26,29 +69,49 @@ const AddPForm = () => {
       <div>
         <h1>Adicionar Produto</h1>
         <section>
-          <input type="number" name="uid" placeholder="ID do Produto" />
+          <input
+            type="text"
+            name="nome"
+            placeholder="Nome do Produto"
+            ref={nomeRef}
+          />
           <br />
-          <input type="text" name="nome" placeholder="Nome do Produto" />
+          <input
+            type="number"
+            name="idf"
+            placeholder="ID do Fornecedor"
+            ref={idfRef}
+          />
           <br />
-          <input type="number" name="idf" placeholder="ID do Fornecedor" />
-          <br />
-          <input type="number" name="idcat" placeholder="ID da Categoria" />
+          <input
+            type="number"
+            name="idcat"
+            placeholder="ID da Categoria"
+            ref={idcatRef}
+          />
           <br />
           <input
             type="text"
-            name="cidade"
+            name="qtd"
             placeholder="Quantidade por únidade"
+            ref={qtdRef}
           />
           <br />
-          <input type="number" name="preco" placeholder="Preço Unitário" />
+          <input
+            type="number"
+            name="preco"
+            placeholder="Preço Unitário"
+            ref={precoRef}
+          />
           <br />
           <input
             type="number"
             name="estoque"
             placeholder="Unidades no estoque"
+            ref={estoqueRef}
           />
           <br />
-          <button type="button" role="button">
+          <button type="button" role="button" onClick={handleSubmit}>
             Adicionar
           </button>
         </section>
@@ -60,6 +123,33 @@ const AddPForm = () => {
   );
 };
 const RemovePForm = () => {
+  const pidRef = React.useRef();
+
+  const handleSubmit = () => {
+    let check = true;
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch(
+      "http://localhost:8000/removeprod?pid=" + pidRef.current.value,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => this.setState({ postId: data.id }))
+      .catch(function (error) {
+        check = false;
+        console.log(
+          "There has been a problem with your fetch operation: " + error.message
+        );
+      });
+    if ((check = true)) {
+      alert("O Produto foi removido!");
+    } else {
+      alert("Conexão com o banco de dados não estabelecida!");
+    }
+  };
+
   if (sessionStorage.getItem("loginF") === null) {
     window.location.href = "/";
     alert("Página não autorizada!");
@@ -69,10 +159,15 @@ const RemovePForm = () => {
       <div>
         <h1>Remover Produto</h1>
         <section>
-          <input type="number" name="uid" placeholder="ID do Produto" />
+          <input
+            type="number"
+            name="pid"
+            placeholder="ID do Produto"
+            ref={pidRef}
+          />
           <br />
-          <button type="button" role="button">
-            Adicionar
+          <button type="button" role="button" onClick={handleSubmit}>
+            Remover
           </button>
         </section>
         <a href="/addprod">Adicionar Produtos</a>

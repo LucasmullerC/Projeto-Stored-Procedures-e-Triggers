@@ -18,16 +18,28 @@ class Cards extends React.Component {
 async function home(data) {
   let produtos = [];
   for (let i = 0; i < data.length; i++) {
+    //nome
     var name = JSON.stringify(data[i]).substring(
       JSON.stringify(data[i]).indexOf(":") + 2,
       JSON.stringify(data[i]).indexOf(",") - 1
     );
+    //preço
     var price = JSON.stringify(data[i]);
     price = price.split(",");
     var pricef = price[14].substring(price[14].indexOf(":") + 1);
+    //qtd
+    var quant = JSON.stringify(data[i]);
+    quant = quant.split(",");
+    var qtdf = quant[22].substring(quant[22].indexOf(":") + 1);
+    //ID
+    var prodid = JSON.stringify(data[i]);
+    prodid = prodid.split(",");
+    var prodf = prodid[30].substring(prodid[30].indexOf(":") + 1);
     let produto = {
       nome: name,
       preco: pricef,
+      qtd: qtdf,
+      pid: prodf,
     };
     produtos[i] = produto;
   }
@@ -41,6 +53,12 @@ function CardBox(props) {
     let sql = "";
     if (props.opt === "home") {
       sql = "http://localhost:8000/getprodutos";
+    } else if (props.opt === 9) {
+      if (!sessionStorage.getItem("carrinho") == "") {
+        let cprods = sessionStorage.getItem("carrinho").split(",");
+        const idsprod = cprods.slice(0, -1);
+        sql = "http://localhost:8000/getprodutosbyid?ids=" + idsprod;
+      }
     } else {
       sql = "http://localhost:8000/getcategoria?cid=" + props.opt;
     }
@@ -60,6 +78,73 @@ function CardBox(props) {
         console.error("There was an error!", error);
       });
   }, []);
+  const handleSubmit = (prodc) => {
+    if (!sessionStorage.getItem("carrinho") == "") {
+      sessionStorage.setItem(
+        "carrinho",
+        sessionStorage.getItem("carrinho") + prodc.pid + ","
+      );
+    } else {
+      sessionStorage.setItem("carrinho", prodc.pid + ",");
+    }
+    alert("Item " + prodc.nome + " Adicionado ao carrinho!");
+  };
+  function vefbtn() {
+    if (props.opt === 9) {
+      return "none";
+    } else {
+      return "block";
+    }
+  }
+  function FinalizarCompra() {
+    if (prods.length != 0) {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      };
+      prods.forEach((element) => {
+        let quant = 0;
+        if (element.qtd != 0) {
+          quant = element.qtd - 1;
+        }
+        fetch(
+          "http://localhost:8000/atualizarprod?pid=" +
+            element.pid +
+            "&preco=" +
+            element.preco +
+            "&qtd=" +
+            quant,
+          requestOptions
+        )
+          .then((response) => response.json())
+          .then((data) => this.setState({ postId: data.id }))
+          .catch(function (error) {
+            console.log(
+              "There has been a problem with your fetch operation: " +
+                error.message
+            );
+          });
+      });
+      alert("Compra finalizada!");
+      sessionStorage.removeItem("carrinho");
+      window.location.href = "/carrinho";
+    }
+  }
+
+  const Carrinho = () => {
+    if (props.opt === 9) {
+      return (
+        <div>
+          <Button
+            style={{ width: "100%", fontSize: "40px" }}
+            onClick={() => FinalizarCompra()}
+          >
+            Finalizar Compra
+          </Button>
+        </div>
+      );
+    }
+  };
   return (
     <div id="cardbox">
       <h1>{props.header}</h1>
@@ -72,7 +157,14 @@ function CardBox(props) {
                 <Card.Body>
                   <Card.Title>R$ {prods[i].preco}</Card.Title>
                   <Card.Text>
-                    <Button variant="success">
+                    <p id="qtdtxt">Quantidade no estoque: {prods[i].qtd}</p>
+                    <br />
+
+                    <Button
+                      variant="success"
+                      onClick={() => handleSubmit(prods[i])}
+                      style={{ display: vefbtn() }}
+                    >
                       <FontAwesomeIcon icon={faCartShopping} id="iconmenu" />
                       Adicionar ao Carrinho
                     </Button>
@@ -82,8 +174,8 @@ function CardBox(props) {
             </Col>
           );
         })}
-        ;
       </Row>
+      <Carrinho />
     </div>
   );
 }

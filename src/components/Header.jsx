@@ -25,6 +25,7 @@ class Header extends React.Component {
 const logout = () => {
   sessionStorage.removeItem("login");
   sessionStorage.removeItem("loginF");
+  sessionStorage.removeItem("carrinho");
 };
 
 const Headerbar = () => {
@@ -71,7 +72,7 @@ const Headerbar = () => {
       return (
         <div>
           <NavDropdown title={nameRef} id="cadlogin">
-            <NavDropdown.Item href="#action/3.1">
+            <NavDropdown.Item href="/carrinho">
               <FontAwesomeIcon icon={faCartShopping} id="iconmenu" /> Carrinho
             </NavDropdown.Item>
             <NavDropdown.Item href="/" onClick={logout}>
