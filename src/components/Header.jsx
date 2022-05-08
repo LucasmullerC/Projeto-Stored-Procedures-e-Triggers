@@ -115,7 +115,7 @@ const Headerbar = () => {
                 <Dropdown.Item href="/frutos">Frutos do mar</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-            <Nav.Link href="#pricing" id="menuhead">
+            <Nav.Link href="/sobre" id="menuhead">
               <FontAwesomeIcon icon={faQuestion} id="iconmenu" />
               Sobre
             </Nav.Link>

@@ -5,6 +5,7 @@ import Cadastro from "./pages/Cadastro.jsx";
 import Addprod from "./pages/Addprod.jsx";
 import Removeprod from "./pages/Removeprod.jsx";
 import Carrinho from "./pages/Carrinho.jsx";
+import Sobre from "./pages/Sobre.jsx";
 
 import Bebidas from "./categories/Bebidas.jsx";
 import Carne from "./categories/Carne.jsx";
@@ -25,8 +26,8 @@ function App() {
       <Route path="/cadastro" element={<Cadastro />}></Route>
       <Route path="/addprod" element={<Addprod />}></Route>
       <Route path="/removeprod" element={<Removeprod />}></Route>
-      <Route path="/carrinho" element={<Carrinho />}></Route>
-
+      <Route path="/carrinho" element={<Carrinho />}></Route>,
+      <Route path="/sobre" element={<Sobre />}></Route>
       <Route path="/bebidas" element={<Bebidas />}></Route>
       <Route path="/carne" element={<Carne />}></Route>
       <Route path="/cereais" element={<Cereiais />}></Route>

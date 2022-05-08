@@ -12,7 +12,7 @@ O projeto consiste em implementar uma interface gráfica e uma conexão com o ba
 
 ## ❓Sobre / About
 
-Como contexto para a interface utilizamos o "Projeto Lojinha" em homenagem a um dos nossos primeiros "Projetos" na <a href="https://github.com/LucasmullerC/Projeto-Lojinha">úniversidade</a>.
+Como contexto para a interface utilizamos o "Projeto Lojinha" em homenagem a um dos nossos primeiros <a href="https://github.com/LucasmullerC/Projeto-Lojinha">"Projetos"</a> na úniversidade.
 
 # Frameworks, Libraries e Programas utilizados:
 
