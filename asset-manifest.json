@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Projeto-Stored-Procedures-e-Triggers/static/css/main.0c310c05.css",
-    "main.js": "/Projeto-Stored-Procedures-e-Triggers/static/js/main.b4e2e52f.js",
+    "main.css": "/Projeto-Stored-Procedures-e-Triggers/static/css/main.59108d94.css",
+    "main.js": "/Projeto-Stored-Procedures-e-Triggers/static/js/main.f0dcbb3e.js",
     "index.html": "/Projeto-Stored-Procedures-e-Triggers/index.html",
-    "main.0c310c05.css.map": "/Projeto-Stored-Procedures-e-Triggers/static/css/main.0c310c05.css.map",
-    "main.b4e2e52f.js.map": "/Projeto-Stored-Procedures-e-Triggers/static/js/main.b4e2e52f.js.map"
+    "main.59108d94.css.map": "/Projeto-Stored-Procedures-e-Triggers/static/css/main.59108d94.css.map",
+    "main.f0dcbb3e.js.map": "/Projeto-Stored-Procedures-e-Triggers/static/js/main.f0dcbb3e.js.map"
   },
   "entrypoints": [
-    "static/css/main.0c310c05.css",
-    "static/js/main.b4e2e52f.js"
+    "static/css/main.59108d94.css",
+    "static/js/main.f0dcbb3e.js"
   ]
 }
